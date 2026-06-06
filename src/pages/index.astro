@@ -101,10 +101,7 @@ if (spotify) {
 					>
 						syncing discord
 					</div>
-					<div
-						class={`dc-top flex items-center gap-4 ${initialStatus !== "offline" ? "mb-4" : ""}`}
-						id="dcTop"
-					>
+					<div class={`dc-top flex items-center gap-4`} id="dcTop">
 						<div class="dc-avatar-wrap relative">
 							<img
 								alt="avatar"
@@ -580,11 +577,11 @@ if (spotify) {
 		if (elements.status)
 			elements.status.className = `dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-surface-container ${statusMap[data.discord_status] || "offline"}`;
 
-		if ((statusMap[data.discord_status] || "offline") === "offline") {
-			document.querySelector("#dcTop")?.classList.remove("mb-4"); // Sacar padding innecesario al no tener elementos en el estado
-		} else {
-			document.querySelector("#dcTop")?.classList.add("mb-4");
-		}
+		// if ((statusMap[data.discord_status] || "offline") === "offline") {
+		// 	document.querySelector("#dcTop")?.classList.remove("mb-4"); // Sacar padding innecesario al no tener elementos en el estado
+		// } else {
+		// 	document.querySelector("#dcTop")?.classList.add("mb-4");
+		// }
 
 		if (elements.avatar)
 			elements.avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.webp?size=128`;
