@@ -10,8 +10,6 @@ try {
 	const res = await fetch(lanyardUrl);
 	const body = await res.json();
 
-	console.log(body);
-
 	if (body.success) {
 		discordData = body.data;
 	}
