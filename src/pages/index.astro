@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 import SocialButton from "../components/SocialButton.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -7,7 +9,9 @@ const lanyardUrl = `https://api.lanyard.rest/v1/users/${DISCORD_ID}`;
 
 let discordData: any = null;
 try {
-	const res = await fetch(lanyardUrl);
+	const res = await fetch(lanyardUrl, {
+		cache: "no-store",
+	});
 	const body = await res.json();
 
 	if (body.success) {
