@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import Link from "../components/Link.astro";
 import SocialButton from "../components/SocialButton.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -325,66 +326,29 @@ if (spotify) {
 						Proyectos
 					</h2>
 					<div class="space-y-1">
-						<a
-							class="group flex justify-between items-center border-b border-border-subtle hover:border-secondary transition-colors py-2"
-							href="https://link.ticua.ar"
-							target="_blank"
-							rel="noopener"
-						>
-							<span
-								class="font-body-md text-primary text-[17px] group-hover:text-secondary transition-colors"
-								>Astro Shortener</span
-							>
-							<span
-								class="font-label-mono text-[12px] text-text-secondary lowercase"
-								>Shorten your links</span
-							>
-						</a>
-						<a
-							class="group flex justify-between items-center border-b border-border-subtle hover:border-secondary transition-colors py-2"
-							href="https://paste.ticua.ar"
-							target="_blank"
-							rel="noopener"
-						>
-							<span
-								class="font-body-md text-primary text-[17px] group-hover:text-secondary transition-colors"
-								>Faste</span
-							>
-							<span
-								class="font-label-mono text-[12px] text-text-secondary lowercase"
-								>Create your pastes faster</span
-							>
-						</a>
-						<a
-							class="group flex justify-between items-center border-b border-border-subtle hover:border-secondary transition-colors py-2"
-							href="https://fs.ticua.ar"
-							target="_blank"
-							rel="noopener"
-						>
-							<span
-								class="font-body-md text-primary text-[17px] group-hover:text-secondary transition-colors"
-								>WordFS</span
-							>
-							<span
-								class="font-label-mono text-[12px] text-text-secondary lowercase"
-								>Share any file using a 3-word code</span
-							>
-						</a>
-						<a
-							class="group flex justify-between items-center border-b border-border-subtle hover:border-secondary transition-colors py-2"
-							href="https://modrinth.com/mod/string-duper-fix-remover"
-							target="_blank"
-							rel="noopener"
-						>
-							<span
-								class="font-body-md text-primary text-[17px] group-hover:text-secondary transition-colors"
-								>String Duper Restorer</span
-							>
-							<span
-								class="font-label-mono text-[12px] text-text-secondary lowercase"
-								>Minecraft Java Mod</span
-							>
-						</a>
+						<Link
+							name="Astro Shortener"
+							description="Shorten your links"
+							link="https://link.ticua.ar"
+						/>
+
+						<Link
+							name="Faste"
+							description="Create your pastes faster"
+							link="https://paste.ticua.ar"
+						/>
+
+						<Link
+							name="WordFS"
+							description="Share any file using a 3-word code"
+							link="https://fs.ticua.ar"
+						/>
+
+						<Link
+							name="String Duper Restorer"
+							description="Minecraft Java Mod"
+							link="https://modrinth.com/mod/string-duper-fix-remover"
+						/>
 					</div>
 				</div>
 			</section>
