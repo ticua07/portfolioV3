@@ -96,7 +96,7 @@ if (spotify) {
 				</h1>
 
 				<section
-					class="card bg-surface-container rounded-2xl p-6 mb-2 border border-border-subtle w-full max-w-sm mx-auto text-left"
+					class="card dc-card p-7 mb-2 border border-border-subtle w-full max-w-sm mx-auto text-left"
 					id="discordCard"
 				>
 					<div
@@ -110,17 +110,17 @@ if (spotify) {
 						<div class="dc-avatar-wrap relative">
 							<img
 								alt="avatar"
-								class="dc-avatar w-16 h-16 rounded-full border border-border-subtle"
+								class="dc-avatar w-[4.5rem] h-[4.5rem] rounded-full border border-border-subtle"
 								id="dcAvatar"
 								src={initialAvatar}
 							/>
 							<span
-								class={`dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-surface-container ${initialStatus}`}
+								class={`dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-[#18181d] ${initialStatus}`}
 								id="dcStatus"></span>
 						</div>
 						<div class="dc-names">
 							<div
-								class="dc-display font-headline-lg text-2xl text-primary lowercase leading-tight"
+								class="dc-display font-headline-lg text-[26px] text-primary lowercase leading-tight"
 								id="dcDisplay"
 							>
 								{initialName}
@@ -135,7 +135,7 @@ if (spotify) {
 					</div>
 
 					<div
-						class={`row ${gameAct ? "" : "hidden"} flex items-center gap-4 mt-4 p-3 rounded-lg bg-surface-container-low border border-white/5`}
+						class={`row ${gameAct ? "" : "hidden"} flex items-center gap-4 mt-4 pt-4 border-t border-border-subtle`}
 						id="dcActivity"
 					>
 						<img
@@ -157,7 +157,7 @@ if (spotify) {
 								>
 							</div>
 							<div
-								class="dc-act-name font-bold text-xs text-primary uppercase tracking-wider truncate"
+								class="dc-act-name font-label-mono text-xs text-primary uppercase tracking-wider truncate"
 								id="dcActName"
 							>
 								{gameAct?.name || ""}
@@ -178,7 +178,7 @@ if (spotify) {
 					</div>
 
 					<div
-						class={`row ${discordData?.listening_to_spotify ? "" : "hidden"} flex items-center gap-4 mt-4 p-3 rounded-lg bg-surface-container-low border border-white/5`}
+						class={`row ${discordData?.listening_to_spotify ? "" : "hidden"} flex items-center gap-4 mt-4 pt-4 border-t border-border-subtle`}
 						id="dcSpotify"
 						data-spotify-start={spotify?.timestamps?.start || 0}
 						data-spotify-end={spotify?.timestamps?.end || 0}
@@ -191,7 +191,7 @@ if (spotify) {
 						/>
 						<div class="sp-text flex-1 overflow-hidden">
 							<div
-								class="sp-label flex items-center gap-1 text-[10px] text-secondary uppercase font-bold mb-1"
+								class="sp-label flex items-center gap-1.5 text-[10px] text-secondary uppercase font-label-mono tracking-[0.18em] mb-1.5"
 							>
 								<svg
 									class="w-3 h-3 fill-current"
@@ -236,6 +236,29 @@ if (spotify) {
 									id="spTot">{initialSpotifyTot}</span
 								>
 							</div>
+						</div>
+					</div>
+					<div
+						class={`row ${!gameAct && !discordData?.listening_to_spotify ? "" : "hidden"} mt-4 pt-4 border-t border-border-subtle flex flex-col gap-1.5`}
+						id="dcIdle"
+					>
+						<div
+							class="font-label-mono text-[11px] text-text-secondary flex items-center gap-2"
+						>
+							<span
+								class="material-symbols-outlined text-[15px] text-secondary"
+								>music_off</span
+							>
+							not listening to anything right now
+						</div>
+						<div
+							class="font-label-mono text-[11px] text-text-secondary flex items-center gap-2"
+						>
+							<span
+								class="material-symbols-outlined text-[15px] text-secondary"
+								>schedule</span
+							>
+							<span id="dcClock">—</span> · buenos aires
 						</div>
 					</div>
 				</section>
@@ -409,6 +432,14 @@ if (spotify) {
 		background-color: #80848e;
 	}
 
+	#discordCard {
+		background: linear-gradient(180deg, #18181d, #0e0e11);
+		border-radius: 20px;
+		box-shadow:
+			inset 0 1px 0 rgba(255, 255, 255, 0.06),
+			0 10px 22px -16px rgba(0, 0, 0, 0.55);
+	}
+
 	@media (min-width: 768px) and (min-height: 550px) {
 		body {
 			overflow-y: hidden;
@@ -417,6 +448,8 @@ if (spotify) {
 			height: 100vh !important;
 			max-height: 100vh !important;
 			overflow: hidden !important;
+			padding-left: clamp(1.5rem, 6vw, 5rem) !important;
+			padding-right: clamp(1.5rem, 6vw, 5rem) !important;
 			max-width: clamp(1000px, 85vw, 1200px) !important;
 			display: flex;
 			flex-direction: column;
@@ -435,19 +468,19 @@ if (spotify) {
 
 		#discordCard {
 			margin-top: clamp(1rem, 4vh, 3rem) !important;
-			padding: clamp(0.75rem, 2vh, 1.5rem) !important;
+			padding: clamp(1rem, 2.4vh, 1.75rem) !important;
 			margin-bottom: clamp(0.25rem, 1vh, 0.5rem) !important;
 			/* max-width: clamp(20rem, 35vh, 24rem) !important; */
 		}
 
 		#discordCard .row {
 			margin-top: clamp(0.5rem, 1.5vh, 1rem) !important;
-			padding: clamp(0.375rem, 1vh, 0.75rem) !important;
+			padding-top: clamp(0.5rem, 1.5vh, 1rem) !important;
 		}
 
 		#discordCard .dc-avatar {
-			width: clamp(3rem, 7vh, 4rem) !important;
-			height: clamp(3rem, 7vh, 4rem) !important;
+			width: clamp(3.25rem, 7.5vh, 4.5rem) !important;
+			height: clamp(3.25rem, 7.5vh, 4.5rem) !important;
 		}
 
 		/* Bottom section grid gap */
@@ -519,7 +552,24 @@ if (spotify) {
 		spCur: document.getElementById("spCur"),
 		spTot: document.getElementById("spTot"),
 		spFill: document.getElementById("spFill") as HTMLDivElement,
+		idle: document.getElementById("dcIdle"),
+		clock: document.getElementById("dcClock"),
 	};
+
+	// Reloj en la zona horaria del dueño (se muestra en el estado idle).
+	const OWNER_TZ = "America/Argentina/Buenos_Aires";
+	function updateClock() {
+		if (!elements.clock) return;
+		elements.clock.textContent = new Date()
+			.toLocaleTimeString("en-US", {
+				hour: "numeric",
+				minute: "2-digit",
+				timeZone: OWNER_TZ,
+			})
+			.toLowerCase();
+	}
+	updateClock();
+	setInterval(updateClock, 30000);
 
 	function formatTime(ms: number) {
 		const seconds = Math.floor((ms / 1000) % 60);
@@ -539,7 +589,7 @@ if (spotify) {
 			offline: "offline",
 		};
 		if (elements.status)
-			elements.status.className = `dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-surface-container ${statusMap[data.discord_status] || "offline"}`;
+			elements.status.className = `dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-[#18181d] ${statusMap[data.discord_status] || "offline"}`;
 
 		// if ((statusMap[data.discord_status] || "offline") === "offline") {
 		// 	document.querySelector("#dcTop")?.classList.remove("mb-4"); // Sacar padding innecesario al no tener elementos en el estado
@@ -625,6 +675,12 @@ if (spotify) {
 			elements.spotify.classList.add("hidden");
 			clearInterval(spotifyInterval);
 		}
+
+		const idleVisible =
+			!gameAct && !(data.listening_to_spotify && data.spotify);
+		if (elements.idle)
+			elements.idle.classList.toggle("hidden", !idleVisible);
+		if (idleVisible) updateClock();
 	}
 
 	function initInitialSpotifyState() {
