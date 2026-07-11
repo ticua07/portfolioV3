@@ -78,7 +78,7 @@ if (spotify) {
 	<div class="fixed inset-0 grid-overlay pointer-events-none z-0"></div>
 
 	<main
-		class="relative z-10 w-full max-w-250 min-h-screen flex flex-col justify-between px-margin-safe mx-auto font-body-md text-on-background selection:bg-secondary selection:text-on-secondary antialiased"
+		class="relative z-10 w-full max-w-250 min-h-screen flex flex-col justify-center items-center px-margin-safe mx-auto font-body-md text-on-background selection:bg-secondary selection:text-on-secondary antialiased"
 	>
 		<div class="grow flex flex-col items-center justify-center gap-12">
 			<section class="text-center flex flex-col items-center w-full">
@@ -256,18 +256,21 @@ if (spotify) {
 						>
 							Passionate Web Developer specializing in <a
 								href="https://react.dev"
+								data-cuelume-hover="tick"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="text-primary font-semibold relative inline-block after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:bg-primary"
 								>React</a
 							>, <a
 								href="https://nextjs.org"
+								data-cuelume-hover="tick"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="text-primary font-semibold relative inline-block after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:bg-primary"
 								>NextJS</a
 							> and <a
 								href="https://astro.build"
+								data-cuelume-hover="tick"
 								target="_blank"
 								rel="noopener noreferrer"
 								class="text-primary font-semibold relative inline-block after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:origin-left after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:duration-300 after:bg-primary"
@@ -282,9 +285,12 @@ if (spotify) {
 						>
 							<a
 								class="inline-flex items-center gap-2 font-label-mono text-[12px] text-primary border border-border-subtle px-4 py-2 hover:border-secondary transition-all hover:bg-surface-bright h-13"
+								data-cuelume-hover="tick"
 								href="https://modrinth.com/mod/string-duper-fix-remover"
 								target="_blank"
 								rel="noopener"
+								data-cuelume-press
+								data-cuelume-release
 							>
 								<span>Latest: Minecraft Mod</span>
 								<span
@@ -411,10 +417,6 @@ if (spotify) {
 			height: 100vh !important;
 			max-height: 100vh !important;
 			overflow: hidden !important;
-			padding-top: clamp(1rem, 3vh, 3rem) !important;
-			padding-bottom: clamp(1rem, 3vh, 3rem) !important;
-			padding-left: clamp(1.5rem, 6vw, 5rem) !important;
-			padding-right: clamp(1.5rem, 6vw, 5rem) !important;
 			max-width: clamp(1000px, 85vw, 1200px) !important;
 			display: flex;
 			flex-direction: column;
@@ -432,6 +434,7 @@ if (spotify) {
 		}
 
 		#discordCard {
+			margin-top: clamp(1rem, 4vh, 3rem) !important;
 			padding: clamp(0.75rem, 2vh, 1.5rem) !important;
 			margin-bottom: clamp(0.25rem, 1vh, 0.5rem) !important;
 			/* max-width: clamp(20rem, 35vh, 24rem) !important; */

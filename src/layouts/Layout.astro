@@ -16,3 +16,10 @@ import "../styles/fonts.css";
 		<slot />
 	</body>
 </html>
+
+<script>
+	// bind() es idempotente: no re-adjunta listeners si el layout
+	// se renderiza más de una vez en la misma página.
+	import { bind } from "cuelume";
+	bind();
+</script>
