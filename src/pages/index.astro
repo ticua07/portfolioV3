@@ -78,7 +78,7 @@ if (spotify) {
 	<div class="fixed inset-0 grid-overlay pointer-events-none z-0"></div>
 
 	<main
-		class="relative z-10 w-full max-w-250 min-h-screen flex flex-col justify-center items-center px-margin-safe mx-auto font-body-md text-on-background selection:bg-secondary selection:text-on-secondary antialiased"
+		class="relative z-10 w-full max-w-250 min-h-screen flex flex-col justify-center items-center px-margin-safe py-8 md:py-0 mx-auto font-body-md text-on-background selection:bg-secondary selection:text-on-secondary antialiased"
 	>
 		<div class="grow flex flex-col items-center justify-center gap-12">
 			<section class="text-center flex flex-col items-center w-full">
@@ -178,63 +178,69 @@ if (spotify) {
 					</div>
 
 					<div
-						class={`row ${discordData?.listening_to_spotify ? "" : "hidden"} flex items-center gap-4 mt-4 pt-4 border-t border-border-subtle`}
+						class={`row ${discordData?.listening_to_spotify ? "" : "hidden"} flex flex-col gap-2 mt-4 pt-4 border-t border-border-subtle`}
 						id="dcSpotify"
 						data-spotify-start={spotify?.timestamps?.start || 0}
 						data-spotify-end={spotify?.timestamps?.end || 0}
 					>
-						<img
-							alt="album art"
-							class="sp-art w-12 h-12 rounded-md"
-							id="spArt"
-							src={spotify?.album_art_url || ""}
-						/>
-						<div class="sp-text flex-1 overflow-hidden">
-							<div
-								class="sp-label flex items-center gap-1.5 text-[10px] text-secondary uppercase font-label-mono tracking-[0.18em] mb-1.5"
+						<div
+							class="sp-label flex items-center gap-1 text-[10px] leading-none text-secondary uppercase font-label-mono tracking-[0.18em]"
+						>
+							<svg
+								class="w-2.5 h-2.5 shrink-0 fill-current"
+								viewBox="0 0 24 24"
+								><path
+									d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.96-.6-.122-.42.18-.84.6-.96 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.561.3z"
+								></path></svg
 							>
-								<svg
-									class="w-3 h-3 fill-current"
-									viewBox="0 0 24 24"
-									><path
-										d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.84-.179-.96-.6-.122-.42.18-.84.6-.96 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.561.3z"
-									></path></svg
-								>
-								<span>Listening on Spotify</span>
-							</div>
-							<div
-								class="sp-song text-sm font-bold text-primary truncate"
-								id="spSong"
+							<span class="leading-none"
+								>Listening on Spotify</span
 							>
-								{spotify?.song || ""}
-							</div>
+						</div>
+						<div class="flex items-stretch gap-4">
+							<img
+								alt="album art"
+								class="sp-art w-14 self-stretch object-cover rounded-md"
+								id="spArt"
+								src={spotify?.album_art_url || ""}
+							/>
 							<div
-								class="sp-artist text-xs text-text-secondary truncate"
-								id="spArtist"
+								class="sp-text flex-1 overflow-hidden flex flex-col justify-center"
 							>
-								{spotify?.artist || ""}
-							</div>
-							<div
-								class="sp-bar-wrap flex items-center gap-2 mt-2"
-							>
-								<span
-									class="sp-time text-[10px] font-mono text-text-secondary"
-									id="spCur">{initialSpotifyCur}</span
-								>
 								<div
-									class="sp-bar flex-1 h-1 bg-surface-container-highest rounded-full overflow-hidden"
+									class="sp-song text-sm font-bold text-primary truncate"
+									id="spSong"
 								>
-									<div
-										class="sp-bar-fill h-full bg-secondary transition-all duration-1000"
-										id="spFill"
-										style={`width: ${initialSpotifyPercent}%;`}
-									>
-									</div>
+									{spotify?.song || ""}
 								</div>
-								<span
-									class="sp-time text-[10px] font-mono text-text-secondary"
-									id="spTot">{initialSpotifyTot}</span
+								<div
+									class="sp-artist text-xs text-text-secondary truncate"
+									id="spArtist"
 								>
+									{spotify?.artist || ""}
+								</div>
+								<div
+									class="sp-bar-wrap flex items-center gap-2 mt-2"
+								>
+									<span
+										class="sp-time text-[10px] font-mono text-text-secondary"
+										id="spCur">{initialSpotifyCur}</span
+									>
+									<div
+										class="sp-bar flex-1 h-1 bg-surface-container-highest rounded-full overflow-hidden"
+									>
+										<div
+											class="sp-bar-fill h-full bg-secondary transition-all duration-1000"
+											id="spFill"
+											style={`width: ${initialSpotifyPercent}%;`}
+										>
+										</div>
+									</div>
+									<span
+										class="sp-time text-[10px] font-mono text-text-secondary"
+										id="spTot">{initialSpotifyTot}</span
+									>
+								</div>
 							</div>
 						</div>
 					</div>
