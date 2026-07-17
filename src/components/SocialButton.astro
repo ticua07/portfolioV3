@@ -2,20 +2,41 @@
 export interface Props {
     href: string;
     ariaLabel: string;
+    tooltip?: string;
 }
 
-const { href, ariaLabel } = Astro.props;
+const { href, ariaLabel, tooltip } = Astro.props;
 ---
 
-<a
-    href={href}
-    target="_blank"
-    rel="noopener"
-    aria-label={ariaLabel}
-    data-cuelume-hover="tick"
-    data-cuelume-press
-    data-cuelume-release
-    class="inline-flex items-center justify-center w-13 h-13 rounded-full border border-border-subtle bg-white/3 text-primary backdrop-blur-md transition-all duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.75 hover:bg-white/8 hover:border-secondary [&_svg]:w-6 [&_svg]:h-6 [&_svg]:fill-current"
->
-    <slot />
-</a>
+<div class="relative group social-tooltip-container">
+    <a
+        href={href}
+        target="_blank"
+        rel="noopener"
+        aria-label={ariaLabel}
+        data-cuelume-hover="tick"
+        data-cuelume-press
+        data-cuelume-release
+        class="inline-flex items-center justify-center w-13 h-13 rounded-full border border-border-subtle bg-white/3 text-primary backdrop-blur-md transition-all duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.75 hover:bg-white/8 hover:border-secondary [&_svg]:w-6 [&_svg]:h-6 [&_svg]:fill-current"
+    >
+        <slot />
+    </a>
+    {
+        tooltip && (
+            <span class="absolute bottom-[calc(100%+8px)] left-1/2 -translate-x-1/2 px-2.5 py-1.5 text-[14px] font-label-mono text-primary bg-neutral-900/90 border border-white/10 rounded-md shadow-xl backdrop-blur-md opacity-0 scale-95 translate-y-1 group-hover:opacity-100 group-hover:scale-100 group-hover:translate-y-0 transition-all duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap z-50 before:absolute before:content-[''] before:w-full before:h-[8px] before:top-full before:left-0">
+                {tooltip}
+            </span>
+        )
+    }
+</div>
+
+<script>
+    document.querySelectorAll('.social-tooltip-container').forEach((container) => {
+        container.addEventListener('mouseleave', () => {
+            const selection = window.getSelection();
+            if (selection) {
+                selection.removeAllRanges();
+            }
+        });
+    });
+</script>
