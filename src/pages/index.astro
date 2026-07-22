@@ -13,10 +13,11 @@ try {
 	const res = await fetch(lanyardUrl, {
 		cache: "no-store",
 	});
-	const body = await res.json();
-
-	if (body.success) {
-		discordData = body.data;
+	if (res.ok) {
+		const body = await res.json();
+		if (body.success) {
+			discordData = body.data;
+		}
 	}
 } catch (e) {
 	console.error("Failed to fetch lanyard data:", e);
@@ -151,10 +152,9 @@ if (spotify) {
 								id="dcActFallback"
 								class="flex items-center justify-center text-secondary"
 							>
-								<span
-									class="material-symbols-outlined text-[24px]"
-									>sports_esports</span
-								>
+								<svg class="w-6 h-6 fill-current" viewBox="0 -960 960 960" aria-hidden="true">
+									<path d="M182-200q-51 0-79-35.5T82-322l42-300q9-60 53.5-99T282-760h396q60 0 104.5 39t53.5 99l42 300q7 51-21 86.5T778-200q-21 0-39-7.5T706-230l-90-90H344l-90 90q-15 15-33 22.5t-39 7.5Zm16-86 114-114h336l114 114q2 2 16 6 11 0 17.5-6.5T800-304l-44-308q-4-29-26-48.5T678-680H282q-30 0-52 19.5T204-612l-44 308q-2 11 4.5 17.5T182-280q2 0 16-6Zm482-154q17 0 28.5-11.5T720-480q0-17-11.5-28.5T680-520q-17 0-28.5 11.5T640-480q0 17 11.5 28.5T680-440Zm-80-120q17 0 28.5-11.5T640-600q0-17-11.5-28.5T600-640q-17 0-28.5 11.5T560-600q0 17 11.5 28.5T600-560ZM310-440h60v-70h70v-60h-70v-70h-60v70h-70v60h70v70Zm170-40Z"/>
+								</svg>
 							</div>
 							<div
 								class="dc-act-name font-label-mono text-xs text-primary uppercase tracking-wider truncate"
@@ -200,7 +200,7 @@ if (spotify) {
 						<div class="flex items-stretch gap-4">
 							<img
 								alt="album art"
-								class="sp-art w-14 rounded-md"
+								class="sp-art w-14 rounded-md object-contain"
 								id="spArt"
 								src={spotify?.album_art_url || ""}
 							/>
@@ -251,19 +251,17 @@ if (spotify) {
 						<div
 							class="font-label-mono text-[11px] text-text-secondary flex items-center gap-2"
 						>
-							<span
-								class="material-symbols-outlined text-[15px] text-secondary"
-								>music_off</span
-							>
+							<svg class="w-3.75 h-3.75 fill-current text-secondary shrink-0" viewBox="0 -960 960 960" aria-hidden="true">
+								<path d="M792-56 56-792l56-56 736 736-56 56ZM560-514l-80-80v-246h240v160H560v166ZM400-120q-66 0-113-47t-47-113q0-66 47-113t113-47q23 0 42.5 5.5T480-418v-62l80 80v120q0 66-47 113t-113 47Z"/>
+							</svg>
 							not listening to anything right now
 						</div>
 						<div
 							class="font-label-mono text-[11px] text-text-secondary flex items-center gap-2"
 						>
-							<span
-								class="material-symbols-outlined text-[15px] text-secondary"
-								>schedule</span
-							>
+							<svg class="w-3.75 h-3.75 fill-current text-secondary shrink-0" viewBox="0 -960 960 960" aria-hidden="true">
+								<path d="m612-292 56-56-148-148v-184h-80v216l172 172ZM480-80q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-400Zm0 320q133 0 226.5-93.5T800-480q0-133-93.5-226.5T480-800q-133 0-226.5 93.5T160-480q0 133 93.5 226.5T480-160Z"/>
+							</svg>
 							<span id="dcClock">—</span> · buenos aires
 						</div>
 					</div>
@@ -322,10 +320,9 @@ if (spotify) {
 								data-cuelume-release
 							>
 								<span>Latest: Minecraft Mod</span>
-								<span
-									class="material-symbols-outlined text-[16px]"
-									>arrow_forward</span
-								>
+								<svg class="w-4 h-4 fill-current shrink-0" viewBox="0 -960 960 960" aria-hidden="true">
+									<path d="M647-440H160v-80h487L423-744l57-56 320 320-320 320-57-56 224-224Z"/>
+								</svg>
 							</a>
 
 							<div class="flex gap-3">
@@ -412,14 +409,7 @@ if (spotify) {
 			);
 		background-size: 40px 40px;
 	}
-	.material-symbols-outlined {
-		font-variation-settings:
-			"FILL" 0,
-			"wght" 300,
-			"GRAD" 0,
-			"opsz" 20;
-		font-size: 20px;
-	}
+
 	.hover-lift {
 		transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
 	}
@@ -587,6 +577,7 @@ if (spotify) {
 	let spotifyInterval: number | undefined;
 
 	function updateUI(data: any) {
+		if (!data) return;
 		if (elements.loading) elements.loading.style.display = "none";
 
 		const statusMap: Record<string, string> = {
@@ -598,18 +589,14 @@ if (spotify) {
 		if (elements.status)
 			elements.status.className = `dc-status absolute bottom-0.5 right-0.5 w-4 h-4 rounded-full border-2 border-[#18181d] ${statusMap[data.discord_status] || "offline"}`;
 
-		// if ((statusMap[data.discord_status] || "offline") === "offline") {
-		// 	document.querySelector("#dcTop")?.classList.remove("mb-4"); // Sacar padding innecesario al no tener elementos en el estado
-		// } else {
-		// 	document.querySelector("#dcTop")?.classList.add("mb-4");
-		// }
-
-		if (elements.avatar)
+		if (elements.avatar && data.discord_user?.avatar)
 			elements.avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${data.discord_user.avatar}.webp?size=128`;
-		if (elements.display)
+		if (elements.display && data.discord_user)
 			elements.display.textContent =
-				data.discord_user.display_name || data.discord_user.username;
-		if (elements.username)
+				data.discord_user.display_name ||
+				data.discord_user.username ||
+				"ticua";
+		if (elements.username && data.discord_user?.username)
 			elements.username.textContent = `@${data.discord_user.username}`;
 
 		const activities = data.activities || [];
@@ -617,7 +604,8 @@ if (spotify) {
 
 		if (gameAct && elements.activity) {
 			elements.activity.classList.remove("hidden");
-			if (elements.actName) elements.actName.textContent = gameAct.name;
+			if (elements.actName)
+				elements.actName.textContent = gameAct.name || "";
 			if (elements.actDetail)
 				elements.actDetail.textContent = gameAct.details || "";
 			if (elements.actState)
@@ -641,33 +629,39 @@ if (spotify) {
 			elements.activity.classList.add("hidden");
 		}
 
-		if (data.listening_to_spotify && data.spotify && elements.spotify) {
+		if (
+			data.listening_to_spotify &&
+			data.spotify?.timestamps &&
+			elements.spotify
+		) {
 			elements.spotify.classList.remove("hidden");
 			elements.spotify.setAttribute(
 				"data-spotify-start",
-				data.spotify.timestamps.start,
+				String(data.spotify.timestamps.start || 0),
 			);
 			elements.spotify.setAttribute(
 				"data-spotify-end",
-				data.spotify.timestamps.end,
+				String(data.spotify.timestamps.end || 0),
 			);
 
-			if (elements.spArt) elements.spArt.src = data.spotify.album_art_url;
+			if (elements.spArt)
+				elements.spArt.src = data.spotify.album_art_url || "";
 			if (elements.spSong)
-				elements.spSong.textContent = data.spotify.song;
+				elements.spSong.textContent = data.spotify.song || "";
 			if (elements.spArtist)
-				elements.spArtist.textContent = data.spotify.artist;
+				elements.spArtist.textContent = data.spotify.artist || "";
 
 			clearInterval(spotifyInterval);
 			const updateSpotifyBar = () => {
+				const start = data.spotify?.timestamps?.start || 0;
+				const end = data.spotify?.timestamps?.end || 0;
 				const now = Date.now();
-				const total =
-					data.spotify.timestamps.end - data.spotify.timestamps.start;
-				const progress = Math.min(
-					now - data.spotify.timestamps.start,
-					total,
+				const total = Math.max(1, end - start);
+				const progress = Math.min(Math.max(0, now - start), total);
+				const percent = Math.min(
+					100,
+					Math.max(0, (progress / total) * 100),
 				);
-				const percent = (progress / total) * 100;
 
 				if (elements.spCur)
 					elements.spCur.textContent = formatTime(progress);
@@ -708,9 +702,12 @@ if (spotify) {
 				clearInterval(spotifyInterval);
 				const updateSpotifyBar = () => {
 					const now = Date.now();
-					const total = end - start;
-					const progress = Math.min(now - start, total);
-					const percent = (progress / total) * 100;
+					const total = Math.max(1, end - start);
+					const progress = Math.min(Math.max(0, now - start), total);
+					const percent = Math.min(
+						100,
+						Math.max(0, (progress / total) * 100),
+					);
 
 					if (elements.spCur)
 						elements.spCur.textContent = formatTime(progress);
@@ -726,9 +723,16 @@ if (spotify) {
 	}
 
 	function connectWS() {
-		const socket = new WebSocket(wsUrl);
+		let socket: WebSocket | null = null;
+		try {
+			socket = new WebSocket(wsUrl);
+		} catch (err) {
+			setTimeout(connectWS, 5000);
+			return;
+		}
+
 		socket.onopen = () => {
-			socket.send(
+			socket?.send(
 				JSON.stringify({
 					op: 2,
 					d: { subscribe_to_id: DISCORD_ID },
@@ -736,12 +740,19 @@ if (spotify) {
 			);
 		};
 		socket.onmessage = (event) => {
-			const msg = JSON.parse(event.data);
-			if (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE") {
-				updateUI(msg.d);
+			try {
+				const msg = JSON.parse(event.data);
+				if (msg.t === "INIT_STATE" || msg.t === "PRESENCE_UPDATE") {
+					updateUI(msg.d);
+				}
+			} catch (e) {
+				console.error("Lanyard WS error:", e);
 			}
 		};
 		socket.onclose = () => setTimeout(connectWS, 5000);
+		socket.onerror = () => {
+			socket?.close();
+		};
 	}
 
 	// Start initial spotify interval if rendered by SSR

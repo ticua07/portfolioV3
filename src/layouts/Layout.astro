@@ -1,16 +1,72 @@
 ---
 import "../styles/global.css";
-import "../styles/fonts.css";
+
+interface Props {
+	title?: string;
+	description?: string;
+	image?: string;
+	canonicalURL?: string | URL;
+	type?: string;
+	author?: string;
+}
+
+const {
+	title = "ticua — Web Developer",
+	description = "Personal portfolio of ticua, a Web Developer specializing in React, Next.js, and Astro. Focused on building modern, responsive, and minimal web experiences.",
+	image = "/favicon.svg",
+	canonicalURL = new URL(Astro.url.pathname, Astro.url),
+	type = "website",
+	author = "ticua",
+} = Astro.props;
+
+const canonicalURLString = canonicalURL.toString();
+const resolvedImageURL = new URL(image, Astro.url).toString();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- Primary Meta Tags -->
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="author" content={author} />
+		<meta
+			name="keywords"
+			content="ticua, ticua07, web developer, portfolio, react, next.js, astro, frontend developer, software engineer, buenos aires"
+		/>
+		<meta name="robots" content="index, follow" />
+		<meta name="theme-color" content="#131317" />
+		<meta name="color-scheme" content="dark" />
 		<meta name="generator" content={Astro.generator} />
-		<title>ticua07</title>
+
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURLString} />
+
+		<!-- Open Graph / Facebook / Discord -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={canonicalURLString} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={resolvedImageURL} />
+		<meta property="og:site_name" content="ticua" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:url" content={canonicalURLString} />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={resolvedImageURL} />
+		<meta name="twitter:creator" content="@ticua07" />
+
+		<!-- Favicons & Fonts -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 	</head>
 	<body>
 		<slot />
